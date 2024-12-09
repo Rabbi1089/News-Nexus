@@ -76,7 +76,7 @@ const AddArticles = () => {
                 <input
                   {...register("title", { required: true })}
                   type="text"
-                  placeholder="title"
+                  placeholder="Title"
                   className="w-full p-2 rounded-md focus:ring focus:ring-opacity-75 text-gray-900 focus:ring-violet-600 border-gray-300"
                 />
               </div>
@@ -90,7 +90,7 @@ const AddArticles = () => {
                     className="select w-full max-w-lg"
                   >
                     <option disabled selected>
-                      Category
+                    Publisher
                     </option>
                     <option value="publisherOne">publisher 2</option>
                     <option value="publisherTwo">publisher two</option>
@@ -98,14 +98,13 @@ const AddArticles = () => {
                 </div>
                 <div className="col-span-full sm:col-span-3">
                   <label htmlFor="" className="text-lg">
-                    Price
+                    Tags
                   </label>
 
                   <Select
                     defaultValue={selectedOption}
                     onChange={setSelectedOption}
                     isMulti
-                   
                     options={options}
                   />
                 </div>
@@ -118,7 +117,7 @@ const AddArticles = () => {
                   <textarea
                     {...register("description", { required: true })}
                     id="bio"
-                    placeholder="description"
+                    placeholder="Description"
                     className="w-full rounded-md focus:ring focus:ring-opacity-75 text-gray-900 focus:ring-violet-600 border-gray-300"
                   ></textarea>
                 </div>
