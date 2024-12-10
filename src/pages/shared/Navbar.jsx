@@ -1,6 +1,15 @@
+import { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
+import { AuthContext } from "../../provider/AuthProvider";
 
 const Navbar = () => {
+  const { user , logOut} = useContext(AuthContext);
+  const handleLogOut = () => {
+    logOut()
+        .then(() => { })
+        .catch(error => console.log(error));
+}
+ // console.log(user);
   const linkItem = (
     <>
       <li>
@@ -13,7 +22,10 @@ const Navbar = () => {
         <NavLink to="/subscription">Subscription</NavLink>
       </li>
       <li>
-        <NavLink to="/dashboard">Dashboard</NavLink>
+        <NavLink to="/dashBoard/userHome">user Dashboard</NavLink>
+      </li>
+      <li>
+        <NavLink to="/dashBoard/adminHome">admin Dashboard</NavLink>
       </li>
       <li>
         <NavLink to="/myArticles">My Articles</NavLink>
@@ -21,9 +33,15 @@ const Navbar = () => {
       <li>
         <NavLink to="/premiumArticles">Premium Articles</NavLink>
       </li>
-      <li>
-        <NavLink to="/login">login</NavLink>
-      </li>
+      {user && user?.email ? (
+        <li>
+          <NavLink onClick={handleLogOut}>Logout</NavLink>
+        </li>
+      ) : (
+        <li>
+          <NavLink to="/login">Login</NavLink>
+        </li>
+      )}
     </>
   );
 
@@ -59,15 +77,18 @@ const Navbar = () => {
       <div className="navbar-center hidden lg:flex z-[1]">
         <ul className="menu menu-horizontal px-1">{linkItem}</ul>
       </div>
-      <div className="navbar-end">
-        <Link to="/">
-          <div className="avatar">
-            <div className="w-14 rounded-full">
-              <img src="https://i.ibb.co.com/W3ktRSR/kaniz.jpg" />
+
+      {user && user?.email ? (
+        <div className="navbar-end">
+          <Link to="/">
+            <div className="avatar">
+              <div className="w-14 rounded-full">
+                <img src={user.photoURL} />
+              </div>
             </div>
-          </div>
-        </Link>
-      </div>
+          </Link>
+        </div>
+      ) : null}
     </div>
   );
 };

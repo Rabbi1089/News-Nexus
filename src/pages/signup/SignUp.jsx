@@ -1,10 +1,11 @@
 import { useContext } from "react";
 import { AuthContext } from "../../provider/AuthProvider";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const SignUp = () => {
-  const { createUser } = useContext(AuthContext);
+  const { createUser, updateUserProfile , setUser} = useContext(AuthContext);
+  const navigate = useNavigate()
   //email password signuo
   const handlesignUp = (e) => {
     e.preventDefault();
@@ -15,9 +16,21 @@ const SignUp = () => {
     const pass = form.password.value;
     console.log({ email, name, photo, pass });
 
-    createUser(email, pass)
+   const result =  createUser(email, pass)
       .then((res) => {
-        Swal.fire("user created!");
+       const user = res.user;
+       console.log('from sign up ',user);
+       updateUserProfile(name, photo)
+       .then(() => {
+       // console.log("profile updated");
+        setUser({ ...result.user, photoURL: photo, displayName: name });
+        navigate('/')
+        Swal.fire({
+          title: "Good job!",
+          text: "Thanks for signing up. Welcome to our community!",
+          icon: "success",
+        });
+      })
       })
       .catch((error) => {
         const errorCode = error.code;

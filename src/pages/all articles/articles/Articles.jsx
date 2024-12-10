@@ -2,8 +2,8 @@
 import { Link } from "react-router-dom";
 
 const Articles = ({ Article }) => {
- // const text = service.Description;
-  //const result = text.substring(0, 100);
+ const text = Article.description;
+  const result = text.substring(0, 100);
 
   return (
     <div className="max-w-lg p-4 shadow-md bg-gray-50 text-gray-800 mx-auto hover:">
@@ -23,7 +23,7 @@ const Articles = ({ Article }) => {
           </a>
           <div className=" my-8">
             <p className="leading-snug text-xl text-gray-600">
-              <span className=""> {Article.description}</span>
+              <span className=""> {result}</span>
             </p>
           </div>
         </div>

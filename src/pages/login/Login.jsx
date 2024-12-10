@@ -24,7 +24,7 @@ const Login = () => {
       });
   };
   return (
-    <div className=" mx-auto  ">
+    <div className="">
       <div className="w-full max-w-md p-8 space-y-3 rounded-xl bg-gray-50 text-gray-800 m-6 mx-auto">
         <h1 className="text-2xl font-bold text-center">Login</h1>
         <form onSubmit={handleSignIn} className="space-y-6">
