@@ -2,10 +2,12 @@ import { useContext } from "react";
 import { AuthContext } from "../../provider/AuthProvider";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import useAxiousPublic from "../../hooks/useAxiousPublic";
 
 const SignUp = () => {
-  const { createUser, updateUserProfile , setUser} = useContext(AuthContext);
-  const navigate = useNavigate()
+  const { createUser, updateUserProfile, setUser } = useContext(AuthContext);
+  const axiousPublic = useAxiousPublic();
+  const navigate = useNavigate();
   //email password signuo
   const handlesignUp = (e) => {
     e.preventDefault();
@@ -16,21 +18,30 @@ const SignUp = () => {
     const pass = form.password.value;
     console.log({ email, name, photo, pass });
 
-   const result =  createUser(email, pass)
-      .then((res) => {
-       const user = res.user;
-       console.log('from sign up ',user);
-       updateUserProfile(name, photo)
-       .then(() => {
-       // console.log("profile updated");
-        setUser({ ...result.user, photoURL: photo, displayName: name });
-        navigate('/')
-        Swal.fire({
-          title: "Good job!",
-          text: "Thanks for signing up. Welcome to our community!",
-          icon: "success",
+    const result = createUser(email, pass)
+      .then(() => {
+        const userInfo = {
+          name: name,
+          email: email,
+          photo: photo,
+        };
+        axiousPublic
+          .post("/user", userInfo)
+          .then((response) => {
+            if (response.data.insertedId) {
+                navigate("/");
+                Swal.fire({
+                  title: "Good job!",
+                  text: "user created",
+                  icon: "success",
+                });
+              }
+          })
+    
+        updateUserProfile(name, photo).then(() => {
+          // console.log("profile updated");
+          setUser({ ...result.user, photoURL: photo, displayName: name });
         });
-      })
       })
       .catch((error) => {
         const errorCode = error.code;

@@ -1,12 +1,12 @@
 import { NavLink, Outlet } from "react-router-dom";
 
 const Dashbord = () => {
-  const isAdmin = true;
+  const isAdmin = false;
   return (
     <div>
-      <div className=" flex text-white">
+      <div className=" flex text-black">
         {/* sidebar */}
-        <div className=" bg-violet-600 p-4 max-w-72 min-h-screen">
+        <div className=" bg-violet-200 p-4 max-w-72 min-h-screen">
           <h1 className=" text-4xl text-center my-8">
             Nexus News
             <br /> <span className=" text-2xl">Stay Informed,</span>
