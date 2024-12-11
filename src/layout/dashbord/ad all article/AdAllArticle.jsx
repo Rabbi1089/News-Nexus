@@ -1,7 +1,44 @@
+import Swal from "sweetalert2";
 import useArticale from "../../../hooks/useArticale";
+import useAxiousSecure from "../../../hooks/useAxiousSecure";
+import { useState } from "react";
 
 const AdAllArticle = () => {
-  const [articles] = useArticale();
+  const [articles, refetch] = useArticale();
+  const axiousSecure = useAxiousSecure();
+
+  const handleArticleStatusDecline = (id) => {
+    axiousSecure
+      .patch(`/admin/article/${id}`, { status: "decline" })
+      .then((res) => {
+        if (res.data.modifiedCount) {
+          refetch();
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Your article is declined!",
+            footer: '<a href="#">Why do I have this issue?</a>',
+          });
+        }
+      });
+  };
+
+  const handleArticleStatusApprove = (id) => {
+    axiousSecure
+      .patch(`/admin/article/${id}`, { status: "approve" })
+      .then((res) => {
+        if (res.data.modifiedCount) {
+          refetch();
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Article approved",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      });
+  };
   console.log(articles);
   return (
     <div>
@@ -20,43 +57,73 @@ const AdAllArticle = () => {
             </tr>
           </thead>
           <tbody>
-            {articles.map((article) => (
+            {articles.map((article, id) => (
               <tr key={article._id}>
-                <th>
-                  <label>
-                    <input type="checkbox" className="checkbox" />
-                  </label>
-                </th>
+                <th>{id + 1}</th>
                 <td>
-                  <div className="font-bold">article title</div>
+                  <div className="font-bold">{article.title}</div>
                 </td>
                 <td>
                   <div className="flex items-center gap-3">
                     <div className="avatar">
                       <div className="mask mask-squircle h-12 w-12">
                         <img
-                          src="https://img.daisyui.com/images/profile/demo/2@94.webp"
-                          alt="Avatar Tailwind CSS Component"
+                          src={
+                            article?.author?.img
+                              ? article?.author?.img
+                              : "https://img.daisyui.com/images/profile/demo/2@94.webp"
+                          }
                         />
                       </div>
                     </div>
                     <div>
-                      <div className="font-bold">
+                      <div className="font-bold text-center">
                         {" "}
-                        article author name
+                        {article?.author?.name}
                         <br />
                         <span className="badge badge-ghost badge-sm">
-                          article author email
+                          {article?.author?.email}
                         </span>
                       </div>
                     </div>
                   </div>
                 </td>
-                <td>publisher</td>
-                <td>posted date</td>
-                <td>status</td>
+                <td>{article?.Publisher}</td>
+                <td>
+                  {article?.created_at
+                    ? article?.created_at.split("T")[0]
+                    : null}
+                </td>
                 <th>
-                  <button className="btn btn-ghost btn-xs">Delete</button>
+                  {article?.status === "approve" ? (
+                    <span>Approved</span>
+                  ) : article?.status === "decline" ? (
+                    <span className="text-red-600">Declined</span>
+                  ) : (
+                    <>
+                      <button
+                        onClick={() => {
+                          handleArticleStatusDecline(article._id);
+                        }}
+                        className="btn btn-ghost btn-xs text-red-600"
+                      >
+                        Decline{" "}
+                      </button>
+                      <button
+                        onClick={() => {
+                          handleArticleStatusApprove(article._id);
+                        }}
+                        className="btn btn-ghost btn-xs text-green-500"
+                      >
+                        Approve{" "}
+                      </button>
+                    </>
+                  )}
+                </th>
+                <th>
+                  <button className="btn btn-ghost btn-xs text-red-600">
+                    Delete
+                  </button>
                   <button className="btn btn-ghost btn-xs">Make Premium</button>
                 </th>
               </tr>

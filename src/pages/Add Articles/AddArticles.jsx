@@ -54,6 +54,7 @@ const AddArticles = () => {
         description: data.description,
         image: res.data.data.display_url,
         created_at: currentDate,
+        status : 'pending',
         author : {
          name : user.displayName,
          email : user.email,
