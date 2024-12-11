@@ -7,6 +7,35 @@ const AdAllArticle = () => {
   const [articles, refetch] = useArticale();
   const axiousSecure = useAxiousSecure();
 
+  const handleDelete = (id) => {
+    axiousSecure.delete(`/admin/article/${id}`).then((res) => {
+      if (res.data.deletedCount) {
+        refetch();
+        Swal.fire({
+          icon: "error",
+          text: "Deleted successfully!",
+        });
+      }
+    });
+  };
+
+  const premiumStatus = (id) => {
+    axiousSecure
+      .patch(`/admin/premium/${id}`, { status: "decline" })
+      .then((res) => {
+        if (res.data.modifiedCount) {
+          refetch();
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "article has been saved in premium list",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      });
+  };
+
   const handleArticleStatusDecline = (id) => {
     axiousSecure
       .patch(`/admin/article/${id}`, { status: "decline" })
@@ -121,10 +150,26 @@ const AdAllArticle = () => {
                   )}
                 </th>
                 <th>
-                  <button className="btn btn-ghost btn-xs text-red-600">
+                  <button
+                    onClick={() => {
+                      handleDelete(article._id);
+                    }}
+                    className="btn btn-ghost btn-xs text-red-600"
+                  >
                     Delete
                   </button>
-                  <button className="btn btn-ghost btn-xs">Make Premium</button>
+                  {article.premium ? (
+                    <span className=" text-yellow-700">Premium</span>
+                  ) : (
+                    <button
+                      onClick={() => {
+                        premiumStatus(article._id);
+                      }}
+                      className="btn btn-ghost btn-xs"
+                    >
+                      Make Premium
+                    </button>
+                  )}
                 </th>
               </tr>
             ))}

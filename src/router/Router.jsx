@@ -11,6 +11,8 @@ import AdminHome from "../layout/dashbord/admin home/AdminHome";
 import DbHome from "../layout/dashbord/dashbord home/DbHome";
 import UserInfo from "../layout/dashbord/user info/UserInfo";
 import AdAllArticle from "../layout/dashbord/ad all article/AdAllArticle";
+import PrivateRoute from "./PrivateRoute";
+import AdminRoute from "./AdminRoute";
 
 export const router = createBrowserRouter([
   {
@@ -23,7 +25,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "/addArticles",
-        element: <AddArticles />,
+        element: (
+          <PrivateRoute>
+            <AddArticles />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/allArticles",
@@ -46,23 +52,31 @@ export const router = createBrowserRouter([
   {
     path: "dashBoard",
     element: <Dashbord></Dashbord>,
-    children : [
+    children: [
       {
         path: "userHome",
-        element: <UserHome></UserHome>
+        element: <UserHome></UserHome>,
       },
       {
         path: "adminHome",
-        element: <AdminHome></AdminHome>
+        element: <AdminHome></AdminHome>,
       },
       {
         path: "allUser",
-        element: <UserInfo />
+        element: (
+          <AdminRoute>
+            <UserInfo />
+          </AdminRoute>
+        ),
       },
       {
         path: "adAllArticles",
-        element: <AdAllArticle />
+        element: (
+          <AdminRoute>
+            <AdAllArticle />
+          </AdminRoute>
+        ),
       },
-    ]
+    ],
   },
 ]);
