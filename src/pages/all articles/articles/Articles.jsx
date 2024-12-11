@@ -1,9 +1,9 @@
-
 import { Link } from "react-router-dom";
 
 const Articles = ({ Article }) => {
- const text = Article.description;
+  const text = Article.description;
   const result = text.substring(0, 100);
+  
 
   return (
     <div className="max-w-lg p-4 shadow-md bg-gray-50 text-gray-800 mx-auto hover:">
@@ -30,8 +30,8 @@ const Articles = ({ Article }) => {
       </div>
 
       <div className="flex  justify-between p-2 mt-24 space-x-4 ">
-        <div className="justify-start flex items-center text-2xl font-serif">
-          ৳ {Article.Publisher}
+        <div className="justify-start flex items-center text-2xl my-5 font-serif bold text-gray-600">
+          Published by :{Article.Publisher}
         </div>
 
         <div>
@@ -41,19 +41,25 @@ const Articles = ({ Article }) => {
               rel="noopener noreferrer"
               href="#"
               className="font-bold hover:underline text-gray-600"
-            >
-              Make Up by :
-            </a>
+            ></a>
           </span>
-          <img
-            src="https://i.ibb.co.com/yBWwd6v/bridal.jpg"
+          {/* <img
+            src=""
             alt=""
             className="w-12 h-12 rounded-lg bg-gray-500"
-          />
-          <h2 className="text-xl font-semibold">
-          <h1>publisher name</h1>
+          /> */}
+          .
+          <div className=" flex gap-3">
+            {Article.tags.map((tag, index) => {
+              // console.log(` - Tag: ${tag}`);
+              return (
+                <button key={index} className="btn btn-sm">
+                  {tag}
+                </button>
+              );
+            })}
            
-          </h2>
+          </div>
         </div>
       </div>
       <Link to={`/article/${Article._id}`}>

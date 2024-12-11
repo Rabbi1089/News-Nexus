@@ -21,7 +21,7 @@ const Dashbord = () => {
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/dashBoard/addItem">
+                  <NavLink to="/dashBoard/adAllArticles">
                     <div className="flex items-center gap-2">All Articles</div>
                   </NavLink>
                 </li>

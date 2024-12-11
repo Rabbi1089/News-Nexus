@@ -3,17 +3,27 @@ import useAxiousPublic from "../../hooks/useAxiousPublic";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import Select from "react-select";
+import useAuth from "../../hooks/useAuth";
 
 const options = [
-  { value: "tag1", label: "tag1" },
-  { value: "tag12", label: "tag12" },
-  { value: "tag13", label: "tag13" },
+  { value: "Technology", label: "Technology" },
+  { value: "Health", label: "Health" },
+  { value: "Travel", label: "Travel" },
+  { value: "Environment", label: "Environment" },
+  { value: "recipes", label: "Recipes" },
 ];
 
 const AddArticles = () => {
   const [selectedOption, setSelectedOption] = useState(null);
   const axiosPublic = useAxiousPublic();
+  const {user} = useAuth()
+  const currentDate = new Date().toISOString();
   console.log(selectedOption);
+  let tags = [];
+
+  if (selectedOption) {
+    selectedOption.map((tag) => tags.push(tag.value));
+  }
 
   const {
     register,
@@ -40,9 +50,15 @@ const AddArticles = () => {
       const Article = {
         title: data.title,
         Publisher: data.Publisher,
-        tags: selectedOption,
+        tags: tags,
         description: data.description,
         image: res.data.data.display_url,
+        created_at: currentDate,
+        author : {
+         name : user.displayName,
+         email : user.email,
+         img : user.photoURL
+        }
       };
       const articleRes = await axiosPublic.post("/article", Article);
       console.log("from menus", articleRes.data);
@@ -90,10 +106,14 @@ const AddArticles = () => {
                     className="select w-full max-w-lg"
                   >
                     <option disabled selected>
-                    Publisher
+                      Publisher
                     </option>
-                    <option value="publisherOne">publisher 2</option>
-                    <option value="publisherTwo">publisher two</option>
+                    <option value="TechCrunch ">TechCrunch </option>
+                    <option value="National Geographic">
+                      National Geographic
+                    </option>
+                    <option value="Forbes ">Forbes </option>
+                    <option value="BBC ">BBC </option>
                   </select>
                 </div>
                 <div className="col-span-full sm:col-span-3">

@@ -10,6 +10,7 @@ import UserHome from "../layout/dashbord/userhome/UserHome";
 import AdminHome from "../layout/dashbord/admin home/AdminHome";
 import DbHome from "../layout/dashbord/dashbord home/DbHome";
 import UserInfo from "../layout/dashbord/user info/UserInfo";
+import AdAllArticle from "../layout/dashbord/ad all article/AdAllArticle";
 
 export const router = createBrowserRouter([
   {
@@ -57,6 +58,10 @@ export const router = createBrowserRouter([
       {
         path: "allUser",
         element: <UserInfo />
+      },
+      {
+        path: "adAllArticles",
+        element: <AdAllArticle />
       },
     ]
   },

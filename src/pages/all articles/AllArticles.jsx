@@ -3,32 +3,14 @@ import useAxiousPublic from "../../hooks/useAxiousPublic";
 import Articles from "./articles/Articles";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import useArticale from "../../hooks/useArticale";
 
 const AllArticles = () => {
-  const axiousPublic = useAxiousPublic();
-  //const [articles , setArticles] = useState([])
-  //console.log('article from ', articles);
 
-  const { data: articles = [] } = useQuery({
-    queryKey: ["article"],
-    queryFn: async () => {
-      const res = await axiousPublic.get("article");
-      return res.data;
-    },
-  });
-  console.log(articles);
+ const [articles] = useArticale()
+ console.log('article from ', articles);
 
-  /*
-  axiousPublic.get('article')
-  .then(function (response) {
-    setArticles(response.data)
-    console.log(response);
-  })
-  .catch(function (error) {
-    console.log(error);
-  })
 
-    */
   return (
     <>
       <div className="">
