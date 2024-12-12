@@ -10,7 +10,7 @@ const useArticale = () => {
       return res.data;
     },
   });
-  console.log(articles);
+
 
   return [articles, refetch];
 };

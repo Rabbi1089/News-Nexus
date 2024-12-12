@@ -62,8 +62,7 @@ const AddArticles = () => {
         }
       };
       const articleRes = await axiosPublic.post("/article", Article);
-      console.log("from menus", articleRes.data);
-      console.log(Article);
+
 
       if (articleRes.data.insertedId) {
         Swal.fire({

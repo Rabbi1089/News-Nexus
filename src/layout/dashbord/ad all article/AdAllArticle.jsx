@@ -6,39 +6,58 @@ import { useState } from "react";
 const AdAllArticle = () => {
   const [articles, refetch] = useArticale();
   const axiousSecure = useAxiousSecure();
+  const [selectedArticleId, setSelectedArticleId] = useState(null);
 
   const handleDelete = (id) => {
-    axiousSecure.delete(`/admin/article/${id}`).then((res) => {
-      if (res.data.deletedCount) {
-        refetch();
-        Swal.fire({
-          icon: "error",
-          text: "Deleted successfully!",
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiousSecure.delete(`/admin/article/${id}`).then((res) => {
+          if (res.data.deletedCount) {
+            refetch();
+            Swal.fire({
+              icon: "error",
+              text: "Deleted successfully!",
+            });
+          }
         });
       }
     });
   };
 
   const premiumStatus = (id) => {
-    axiousSecure
-      .patch(`/admin/premium/${id}`, { status: "decline" })
-      .then((res) => {
-        if (res.data.modifiedCount) {
-          refetch();
-          Swal.fire({
-            position: "top-end",
-            icon: "success",
-            title: "article has been saved in premium list",
-            showConfirmButton: false,
-            timer: 1500,
-          });
-        }
-      });
+    axiousSecure.patch(`/admin/premium/${id}`).then((res) => {
+      if (res.data.modifiedCount) {
+        refetch();
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "article has been saved in premium list",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+    });
   };
 
-  const handleArticleStatusDecline = (id) => {
+  const handleDeclineMessage = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const id = selectedArticleId;
+    const message = form.declineMessage.value;
+    console.log("handleDeclineMessage", id, message);
     axiousSecure
-      .patch(`/admin/article/${id}`, { status: "decline" })
+      .patch(`/admin/article/${id}`, {
+        status: "decline",
+        declineMessage: message,
+      })
       .then((res) => {
         if (res.data.modifiedCount) {
           refetch();
@@ -50,6 +69,10 @@ const AdAllArticle = () => {
           });
         }
       });
+  };
+
+  const handleArticleStatusDecline = (id) => {
+    setSelectedArticleId(id);
   };
 
   const handleArticleStatusApprove = (id) => {
@@ -68,7 +91,7 @@ const AdAllArticle = () => {
         }
       });
   };
-  console.log(articles);
+
   return (
     <div>
       <div className="overflow-x-auto">
@@ -130,19 +153,48 @@ const AdAllArticle = () => {
                     <span className="text-red-600">Declined</span>
                   ) : (
                     <>
+                      {/* You can open the modal using document.getElementById('ID').showModal() method */}
                       <button
-                        onClick={() => {
-                          handleArticleStatusDecline(article._id);
-                        }}
-                        className="btn btn-ghost btn-xs text-red-600"
+                        className="btn"
+                        onClick={() =>
+                          document.getElementById("my_modal_3").showModal()
+                        }
                       >
-                        Decline{" "}
+                        Decline
                       </button>
+                      <dialog id="my_modal_3" className="modal">
+                        <div className="modal-box">
+                          <form onSubmit={handleDeclineMessage} method="dialog">
+                            <label className="form-control w-full max-w-xs">
+                              <div className="label">
+                                <span className="label-text">
+                                  What is reason of decline?
+                                </span>
+                              </div>
+                              <input
+                                type="text"
+                                name="declineMessage"
+                                placeholder="Type here"
+                                className="input input-bordered w-full max-w-xs"
+                              />
+                            </label>
+                            {/* modal start here */}
+                            <button
+                              onClick={() => {
+                                handleArticleStatusDecline(article._id);
+                              }}
+                              className="btn btn-ghost btn-xs text-red-600 mt-4"
+                            >
+                              Decline{" "}
+                            </button>
+                          </form>
+                        </div>
+                      </dialog>
                       <button
                         onClick={() => {
                           handleArticleStatusApprove(article._id);
                         }}
-                        className="btn btn-ghost btn-xs text-green-500"
+                        className="btn ml-3 text-green-500"
                       >
                         Approve{" "}
                       </button>
