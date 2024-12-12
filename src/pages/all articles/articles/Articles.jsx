@@ -3,11 +3,13 @@ import { Link } from "react-router-dom";
 const Articles = ({ Article }) => {
   const text = Article.description;
   const result = text.substring(0, 100);
-  
 
   return (
-    <div className="max-w-lg p-4 shadow-md bg-gray-50 text-gray-800 mx-auto hover:">
+    <div className="max-w-lg p-4 shadow-md  text-gray-800 mx-auto hover:">
       <div className="space-y-4">
+        {Article.premium && Article.premium ? (
+          <div className="badge badge-secondary">Premium</div>
+        ) : null}
         <div className="space-y-2">
           <img
             src={Article.image}
@@ -58,7 +60,6 @@ const Articles = ({ Article }) => {
                 </button>
               );
             })}
-           
           </div>
         </div>
       </div>

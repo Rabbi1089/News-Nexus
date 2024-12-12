@@ -1,10 +1,11 @@
 import Swal from "sweetalert2";
-import useArticale from "../../../hooks/useArticale";
 import useAxiousSecure from "../../../hooks/useAxiousSecure";
 import { useState } from "react";
+import useArticale from "../../../hooks/useArticale";
+
 
 const AdAllArticle = () => {
-  const [articles, refetch] = useArticale();
+  const [articles, refetch] = useArticale()
   const axiousSecure = useAxiousSecure();
   const [selectedArticleId, setSelectedArticleId] = useState(null);
 

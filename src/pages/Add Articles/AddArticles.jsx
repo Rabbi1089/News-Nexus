@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import Select from "react-select";
 import useAuth from "../../hooks/useAuth";
+import UsePublishers from "../../hooks/UsePublishers";
 
 const options = [
   { value: "Technology", label: "Technology" },
@@ -16,9 +17,8 @@ const options = [
 const AddArticles = () => {
   const [selectedOption, setSelectedOption] = useState(null);
   const axiosPublic = useAxiousPublic();
-  const {user} = useAuth()
+  const { user } = useAuth();
   const currentDate = new Date().toISOString();
-  console.log(selectedOption);
   let tags = [];
 
   if (selectedOption) {
@@ -54,15 +54,14 @@ const AddArticles = () => {
         description: data.description,
         image: res.data.data.display_url,
         created_at: currentDate,
-        status : 'pending',
-        author : {
-         name : user.displayName,
-         email : user.email,
-         img : user.photoURL
-        }
+        status: "pending",
+        author: {
+          name: user.displayName,
+          email: user.email,
+          img: user.photoURL,
+        },
       };
       const articleRes = await axiosPublic.post("/article", Article);
-
 
       if (articleRes.data.insertedId) {
         Swal.fire({
@@ -75,6 +74,7 @@ const AddArticles = () => {
       }
     }
   };
+  const publisher = UsePublishers();
 
   return (
     <div>
@@ -108,12 +108,11 @@ const AddArticles = () => {
                     <option disabled selected>
                       Publisher
                     </option>
-                    <option value="TechCrunch ">TechCrunch </option>
-                    <option value="National Geographic">
-                      National Geographic
-                    </option>
-                    <option value="Forbes ">Forbes </option>
-                    <option value="BBC ">BBC </option>
+                    {publisher.map((item) => (
+                      <option key={item._id} value={item.name}>
+                        {item.name}
+                      </option>
+                    ))}
                   </select>
                 </div>
                 <div className="col-span-full sm:col-span-3">
