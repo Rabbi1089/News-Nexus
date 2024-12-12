@@ -4,7 +4,7 @@ const Publisher = () => {
       <section className="py-6 bg-gray-100 text-gray-800">
         <div className="container flex flex-col items-center justify-center p-4 mx-auto sm:p-10">
           <p className="p-2 text-sm font-medium tracking-wider text-center uppercase">
-            Development team
+            Our team
           </p>
           <h1 className="text-4xl font-bold leading-none text-center sm:text-5xl">
             The talented people behind the scenes
@@ -14,7 +14,7 @@ const Publisher = () => {
               <img
                 alt=""
                 className="self-center flex-shrink-0 w-24 h-24 -mt-12 bg-center bg-cover rounded-full bg-gray-500"
-                src="https://source.unsplash.com/100x100/?portrait?0"
+                src="https://i.ibb.co.com/h71yvW6/blog-image-1.jpg"
               />
               <div className="flex-1 my-4">
                 <p className="text-xl font-semibold leading-snug">
@@ -90,7 +90,7 @@ const Publisher = () => {
               <img
                 alt=""
                 className="self-center flex-shrink-0 w-24 h-24 -mt-12 bg-center bg-cover rounded-full bg-gray-500"
-                src="https://source.unsplash.com/100x100/?portrait?1"
+                src="https://i.ibb.co.com/h71yvW6/blog-image-1.jpg"
               />
               <div className="flex-1 my-4">
                 <p className="text-xl font-semibold leading-snug">
@@ -166,7 +166,7 @@ const Publisher = () => {
               <img
                 alt=""
                 className="self-center flex-shrink-0 w-24 h-24 -mt-12 bg-center bg-cover rounded-full bg-gray-500"
-                src="https://source.unsplash.com/100x100/?portrait?2"
+                src="https://i.ibb.co.com/h71yvW6/blog-image-1.jpg"
               />
               <div className="flex-1 my-4">
                 <p className="text-xl font-semibold leading-snug">
@@ -242,7 +242,7 @@ const Publisher = () => {
               <img
                 alt=""
                 className="self-center flex-shrink-0 w-24 h-24 -mt-12 bg-center bg-cover rounded-full bg-gray-500"
-                src="https://source.unsplash.com/100x100/?portrait?3"
+                src="https://i.ibb.co.com/h71yvW6/blog-image-1.jpg"
               />
               <div className="flex-1 my-4">
                 <p className="text-xl font-semibold leading-snug">
@@ -318,7 +318,7 @@ const Publisher = () => {
               <img
                 alt=""
                 className="self-center flex-shrink-0 w-24 h-24 -mt-12 bg-center bg-cover rounded-full bg-gray-500"
-                src="https://source.unsplash.com/100x100/?portrait?4"
+                src="https://i.ibb.co.com/h71yvW6/blog-image-1.jpg"
               />
               <div className="flex-1 my-4">
                 <p className="text-xl font-semibold leading-snug">
@@ -394,7 +394,7 @@ const Publisher = () => {
               <img
                 alt=""
                 className="self-center flex-shrink-0 w-24 h-24 -mt-12 bg-center bg-cover rounded-full bg-gray-500"
-                src="https://source.unsplash.com/100x100/?portrait?5"
+                src="https://i.ibb.co.com/h71yvW6/blog-image-1.jpg"
               />
               <div className="flex-1 my-4">
                 <p className="text-xl font-semibold leading-snug">

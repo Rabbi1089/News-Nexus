@@ -3,13 +3,13 @@ import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../../provider/AuthProvider";
 
 const Navbar = () => {
-  const { user , logOut} = useContext(AuthContext);
+  const { user, logOut } = useContext(AuthContext);
   const handleLogOut = () => {
     logOut()
-        .then(() => { })
-        .catch(error => console.log(error));
-}
- // console.log(user);
+      .then(() => {})
+      .catch((error) => console.log(error));
+  };
+  // console.log(user);
   const linkItem = (
     <>
       <li>
@@ -21,12 +21,17 @@ const Navbar = () => {
       <li>
         <NavLink to="/subscription">Subscription</NavLink>
       </li>
-      <li>
-        <NavLink to="/dashBoard/userHome">user Dashboard</NavLink>
-      </li>
-      <li>
-        <NavLink to="/dashBoard/adminHome">admin Dashboard</NavLink>
-      </li>
+      {!user && (
+        <>
+          <li>
+            <NavLink to="/dashBoard/userHome">user Dashboard</NavLink>
+          </li>
+          <li>
+            <NavLink to="/dashBoard/adminHome">admin Dashboard</NavLink>
+          </li>
+        </>
+      )}
+
       <li>
         <NavLink to="/myArticles">My Articles</NavLink>
       </li>

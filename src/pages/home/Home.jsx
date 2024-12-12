@@ -6,7 +6,6 @@ import Statistic from "../../components/Statistic/Statistic";
 const Home = () => {
     return (
         <div className="max-w-screen-xl mx-auto">
-            <h1 className=" text-6xl">I am from home</h1>
             <Slider />
             <Publisher />
             <Statistic />

@@ -1,10 +1,12 @@
-import { useContext } from "react";
-import { Link } from "react-router-dom";
-import { AuthContext } from "../../provider/AuthProvider";
+import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import useAxiousPublic from "../../hooks/useAxiousPublic";
+import useAuth from "../../hooks/useAuth";
 
 const Login = () => {
-  const { signIn } = useContext(AuthContext);
+  const { signInWithGoogle , signIn} = useAuth()
+  const navigate = useNavigate();
+  const axiousPublic = useAxiousPublic();
   //email password signuo
   const handleSignIn = (e) => {
     e.preventDefault();
@@ -23,6 +25,26 @@ const Login = () => {
         console.log(errorCode, errorMessage);
       });
   };
+
+  const handleGoogleLogin =() => {
+    signInWithGoogle()
+    .then((result) => {
+      console.log(result.user);
+      const userInfo = {
+        email: result.user.email,
+        name: result.user.displayName,
+      };
+      axiousPublic.post("user", userInfo).then((res) => {
+        console.log(res.data);
+        navigate("/");
+      });
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(errorCode, errorMessage);
+    });
+  }
   return (
     <div className="">
       <div className="w-full max-w-md p-8 space-y-3 rounded-xl bg-gray-50 text-gray-800 m-6 mx-auto">
@@ -68,7 +90,7 @@ const Login = () => {
           <div className="flex-1 h-px sm:w-16 bg-gray-300"></div>
         </div>
         <div className="flex justify-center space-x-4">
-          <button aria-label="Log in with Google" className="p-3 rounded-sm">
+          <button  onClick={handleGoogleLogin} aria-label="Log in with Google" className="p-3 rounded-sm">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 32 32"
