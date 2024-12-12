@@ -8,12 +8,12 @@ import SignUp from "../pages/signUp/SignUp";
 import Dashbord from "../layout/dashbord/Dashbord";
 import UserHome from "../layout/dashbord/userhome/UserHome";
 import AdminHome from "../layout/dashbord/admin home/AdminHome";
-import DbHome from "../layout/dashbord/dashbord home/DbHome";
 import UserInfo from "../layout/dashbord/user info/UserInfo";
 import AdAllArticle from "../layout/dashbord/ad all article/AdAllArticle";
 import PrivateRoute from "./PrivateRoute";
 import AdminRoute from "./AdminRoute";
 import AddPublisher from "../layout/dashbord/AddPublisher/AddPublisher";
+import ArticleDetails from "../pages/articleDetails/ArticleDetails";
 
 export const router = createBrowserRouter([
   {
@@ -48,6 +48,10 @@ export const router = createBrowserRouter([
         path: "/signup",
         element: <SignUp />,
       },
+      {
+        path: "article/:id",
+        element: <ArticleDetails />,
+      },
     ],
   },
   {
@@ -64,7 +68,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "addPublisher",
-        element: <AddPublisher/>
+        element: <AddPublisher />,
       },
       {
         path: "allUser",
