@@ -26,7 +26,7 @@ const Dashbord = () => {
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/dashBoard/manageItem">
+                  <NavLink to="/dashBoard/addPublisher">
                     <div className=" flex items-center gap-2">
                       Add Publisher
                     </div>

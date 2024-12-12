@@ -13,6 +13,7 @@ import UserInfo from "../layout/dashbord/user info/UserInfo";
 import AdAllArticle from "../layout/dashbord/ad all article/AdAllArticle";
 import PrivateRoute from "./PrivateRoute";
 import AdminRoute from "./AdminRoute";
+import AddPublisher from "../layout/dashbord/AddPublisher/AddPublisher";
 
 export const router = createBrowserRouter([
   {
@@ -60,6 +61,10 @@ export const router = createBrowserRouter([
       {
         path: "adminHome",
         element: <AdminHome></AdminHome>,
+      },
+      {
+        path: "addPublisher",
+        element: <AddPublisher/>
       },
       {
         path: "allUser",
